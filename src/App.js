@@ -5,19 +5,24 @@ import HeaderBar from "./header/HeaderBar.jsx";
 import Profile from "./profile/Profile.jsx";
 import ProfileRegistration from "./profile-registration/ProfileRegistration.tsx";
 import Community from "./community/Community.tsx";
+import NewCommunity from "./community/newCommunity/NewCommunity.tsx";
+import Context from "./context/Context.tsx";
 
 function App() {
   return (
     <>
-      <Router>
-        <HeaderBar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/register" element={<ProfileRegistration />} />
-          <Route path="/community" element={<Community />} />
-        </Routes>
-      </Router>
+      <Context>
+        <Router>
+          <HeaderBar />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/register" element={<ProfileRegistration />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/newCommunity" element={<NewCommunity />} />
+          </Routes>
+        </Router>
+      </Context>
     </>
   );
 }

@@ -1,5 +1,7 @@
 .profile-menu {
     border: 1px solid black;
+    background-color: gray;
+    position: relative;
     margin-top: 5px;
     width: 250px;
     height: 250px;

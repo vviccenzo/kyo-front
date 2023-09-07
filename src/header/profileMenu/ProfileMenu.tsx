@@ -7,6 +7,7 @@ import React from 'react';
 import "./ProfileMenu.css";
 
 export default function ProfileMenu({ onClose }) {
+
     const handleLogout = () => {
         onClose();
     };

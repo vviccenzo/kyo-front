@@ -1,6 +1,7 @@
 import { DiNetbeans } from "react-icons/di";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useMeuContext } from "../context/Context.tsx";
 
 import React from "react";
 import Avatar from "@mui/material/Avatar";
@@ -13,11 +14,7 @@ import "./headerbar.css";
 
 export default function HeaderBar() {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const { toggleMenu, isMenuOpen } = useMeuContext();
 
   function handleDrawer() {
     setIsOpenDrawer(!isOpenDrawer);
@@ -61,15 +58,17 @@ export default function HeaderBar() {
           handleDrawer={handleDrawer}
         />
 
-        <Avatar
-          onClick={toggleMenu}
-          style={{
-            marginTop: 5,
-            marginRight: 5,
-            cursor: "pointer",
-          }}
-          {...stringAvatar("Vinicius Vicenzo")}
-        />
+        <div className="icon-profile-name">
+          <Avatar
+            onClick={toggleMenu}
+            style={{
+              marginTop: 5,
+              marginRight: 5,
+              cursor: "pointer",
+            }}
+            {...stringAvatar("Vinicius Vicenzo")}
+          />
+        </div>
       </div>
       <div className="header-bar-info">
         {isMenuOpen && <ProfileMenu onClose={toggleMenu} />}
