@@ -4,6 +4,7 @@ import HomePage from "./home/HomePage.jsx";
 import HeaderBar from "./header/HeaderBar.jsx";
 import Profile from "./profile/Profile.jsx";
 import ProfileRegistration from "./profile-registration/ProfileRegistration.tsx";
+import Community from "./community/Community.tsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile/register" element={<ProfileRegistration />} />
+          <Route path="/community" element={<Community />} />
         </Routes>
       </Router>
     </>

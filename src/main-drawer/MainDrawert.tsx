@@ -11,6 +11,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { HiUserGroup } from "react-icons/hi2";
 
 import { useNavigate } from 'react-router-dom';
 
@@ -29,6 +30,11 @@ const routes = {
             name: 'Register',
             path: '/profile/register',
             Icon: AccountCircleIcon
+        },
+        {
+            name: 'Community',
+            path: '/community',
+            Icon: HiUserGroup
         }
     ],
 };

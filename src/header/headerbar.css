@@ -1,6 +1,4 @@
 .header-bar {
-    background-color: black;
-    height: 50px;
     display: flex;
     justify-content: space-between;
 }
@@ -8,4 +6,23 @@
 .account-box {
     padding-top: 12px;
     cursor: pointer;
+}
+
+.icon-profile {
+    border: red solid 1px;
+    padding-left: 770px;
+}
+
+.options-profile {
+    padding-right: 770px !important;
+}
+
+.header-bar-principal {
+    background-color: black;
+    height: 50px;
+}
+
+.header-bar-info {
+    display: flex;
+    justify-content: flex-end;
 }
