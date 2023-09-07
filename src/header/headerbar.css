@@ -1,0 +1,11 @@
+.header-bar {
+    background-color: black;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.account-box {
+    padding-top: 12px;
+    cursor: pointer;
+}

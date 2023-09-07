@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+      "target": "es6", // Adjust the target as needed
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "allowImportingTsExtensions": true,
+      "jsx": "react",
+      "emitDeclarationOnly": true,
+      "declaration": true,
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
+  }
