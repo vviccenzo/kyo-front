@@ -22,7 +22,7 @@ export default function App() {
         />
         <Route
           path="/profile/register"
-          element={<ProtectedRoute element={<ProfileRegistration />} />}
+          element={<ProfileRegistration />}
         />
         <Route
           path="/community"

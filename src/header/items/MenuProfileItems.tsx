@@ -4,17 +4,10 @@ import { Button } from "antd";
 
 import {
     HiOutlineUserCircle,
-    HiMiniArrowLeftOnRectangle,
 } from "react-icons/hi2";
 
 import { Link } from "react-router-dom";
-
-function logout() {
-    setUserInfo({
-        isLogged: false
-    });
-    localStorage.setItem('isLogged', 'false');
-}
+import Logout from "./functions/Logout.tsx";
 
 const profileItemsLogged: any = [];
 
@@ -37,26 +30,11 @@ const profileItems: any = [
     },
     {
         type: "item",
-        icon: (
-            <Link to="/" onClick={() => logout()}>
-                <Button
-                    icon={
-                        <HiMiniArrowLeftOnRectangle
-                            style={{
-                                color: 'white'
-                            }}
-                        />
-                    }
-                    style={{
-                        fontSize: "16px",
-                        background: "black",
-                        border: "none",
-                    }}
-                />
-            </Link>
-        ),
+        icon: (<Logout />),
         label: "Sair",
     },
 ]
 
-export default { profileItems, profileItemsLogged} ;
+const exportedObject = { profileItems, profileItemsLogged };
+
+export default exportedObject;

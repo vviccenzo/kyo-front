@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 
@@ -7,45 +7,66 @@ import { DiNetbeans } from "react-icons/di";
 import { Button, Menu } from "antd";
 
 import profileItemsModule from "./MenuProfileItems";
+import { Link } from "react-router-dom";
 import { useMeuContext } from "../../context/Context";
 
-export default function HeaderItems({ setCollapsed, collapsed }): any {
+interface HeaderItemsProps {
+    setCollapsed: (collapsed: boolean) => void;
+    collapsed: boolean;
+}
+
+export default function HeaderItems({ setCollapsed, collapsed }: HeaderItemsProps) {
 
     const { profileItems, profileItemsLogged } = profileItemsModule;
-    const { userInfo } = useMeuContext();
+    const { isLogged, user } = useMeuContext();
 
     function stringToColor(string: string) {
         let hash = 0;
         let i;
 
-        for (i = 0; i < string.length; i += 1) {
-            hash = string.charCodeAt(i) + ((hash << 5) - hash);
+        if (string) {
+            for (i = 0; i < string.length; i += 1) {
+                hash = string.charCodeAt(i) + ((hash << 5) - hash);
+            }
+
+            let color = "#";
+
+            for (i = 0; i < 3; i += 1) {
+                const value = (hash >> (i * 8)) & 0xff;
+                color += `00${value.toString(16)}`.slice(-2);
+            }
+
+            return color;
         }
-
-        let color = "#";
-
-        for (i = 0; i < 3; i += 1) {
-            const value = (hash >> (i * 8)) & 0xff;
-            color += `00${value.toString(16)}`.slice(-2);
-        }
-
-        return color;
     }
 
     function stringAvatar(name: string) {
-        return {
-            sx: {
-                bgcolor: stringToColor(name),
-            },
-            children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+        const nameParts = name.split(" ");
+
+        if (nameParts.length >= 2) {
+            return {
+                sx: {
+                    bgcolor: stringToColor(name),
+                },
+                children: `${nameParts[0][0]}${nameParts[1][0]}`,
+            };
+        } else if (nameParts.length === 1) {
+            return {
+                sx: {
+                    bgcolor: stringToColor(name),
+                },
+                children: nameParts[0][0],
+            };
         }
+
+        return {};
     }
 
     const menu = [
         {
             key: "Menu",
-            icon: <Avatar {...stringAvatar("Vinicius Vicenzo")} />,
-            children: userInfo.isLogged ? profileItems : profileItemsLogged
+            icon: <Avatar {...stringAvatar(user.name ? user.name : '')} />,
+            children: isLogged ? profileItems : profileItemsLogged
         },
     ];
 
@@ -70,37 +91,41 @@ export default function HeaderItems({ setCollapsed, collapsed }): any {
                         display: "flex",
                     }}
                     icon={
-                        <DiNetbeans
-                            style={{
-                                display: "flex",
-                                marginTop: 13,
-                                cursor: "pointer",
-                                width: 30,
-                                height: 30,
-                                color: "black",
-                            }}
-                        />
+                        <Link to="/home">
+                            <DiNetbeans
+                                style={{
+                                    display: "flex",
+                                    marginTop: 13,
+                                    cursor: "pointer",
+                                    width: 30,
+                                    height: 30,
+                                    color: "black",
+                                }}
+                            />
+                        </Link>
                     }
                 />
             </div>
-            <div
-                className="icon-profile-name"
-                style={{
-                    display: "flex",
-                }}
-            >
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
+            {isLogged === "true" && (
+                <div
+                    className="icon-profile-name"
                     style={{
-                        background: "white",
-                        backgroundColor: "white",
-                        marginTop: -3
+                        display: "flex",
                     }}
-                    defaultSelectedKeys={["2"]}
-                    items={menu}
-                />
-            </div>
+                >
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        style={{
+                            background: "white",
+                            backgroundColor: "white",
+                            marginTop: -3
+                        }}
+                        defaultSelectedKeys={["2"]}
+                        items={menu}
+                    />
+                </div>
+            )}
         </>
     );
 }

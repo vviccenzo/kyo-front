@@ -4,7 +4,7 @@ import { LikeOutlined, CommentOutlined, ShareAltOutlined } from '@ant-design/ico
 
 function PostCard({ user, content }) {
     return (
-        <Card title={`Por ${user}`} extra={<Avatar src={user.avatar} />} style={{ margin: '16px' }}>
+        <Card title={`Por ${user.name}`} style={{ margin: '16px' }}>
             <p>{content}</p>
             <Space>
                 <Button icon={<LikeOutlined />} size="small">

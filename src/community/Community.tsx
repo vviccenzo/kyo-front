@@ -4,8 +4,6 @@ import { Input, Button, Row, Col, Space, Avatar, List, Dropdown, Menu, Divider }
 import { Link } from "react-router-dom";
 import {
     UserOutlined,
-    LikeOutlined,
-    CommentOutlined,
     PaperClipOutlined
 } from '@ant-design/icons';
 
@@ -36,23 +34,34 @@ export default function Community() {
     const [text, setText] = useState('');
     const [posts, setPosts] = useState(data);
 
-    const handlePost = () => {
-        const newPost = {
-            id: posts.length + 1,
-            user: 'Alice',
-            community: 'Tech Enthusiasts',
-            text,
-            taggedUsers,
-        };
+    const handlePost = async () => {
 
-        setPosts([newPost, ...posts]);
+        const formData = new FormData();
+        formData.append('authorId', 1);
+        formData.append('content', text);
+
+        try {
+            const response = await fetch('http://localhost:8080/kyo/post', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                console.log('Dados enviados com sucesso!');
+            } else {
+                console.error('Erro ao enviar os dados.');
+            }
+        } catch (error) {
+            console.error('Erro ao enviar a requisição:', error);
+        }
+
         setText('');
         setTaggedUsers([]);
         setTaggedUsersDropdownVisible(false);
     };
 
     const handleTagUser = (user: any) => {
-        setTaggedUsers((prevUsers) => [...prevUsers, user]);
+        // setTaggedUsers((prevUsers) => [...prevUsers, user]);
         setTaggedUsersDropdownVisible(false);
     };
 

@@ -1,12 +1,11 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const MeuContext = createContext();
 
 export default function Context({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    isLogged: false
-  });
+  const [user, setUser] = useState({});
+  const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged'));
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,8 +17,10 @@ export default function Context({ children }) {
         isMenuOpen,
         setIsMenuOpen,
         toggleMenu,
-        userInfo,
-        setUserInfo
+        isLogged,
+        setIsLogged,
+        user,
+        setUser
       }}>
       {children}
     </MeuContext.Provider>

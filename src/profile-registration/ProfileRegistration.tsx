@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 
 import './ProfileRegistration.css';
+import { Link } from "react-router-dom";
 
 export default function ProfileRegistration() {
     const [selectedImage, setSelectedImage] = useState<string>("");
@@ -14,7 +15,6 @@ export default function ProfileRegistration() {
         email: '',
         confirmEmail: '',
         password: '',
-        confirmPassword: ''
     });
 
     const handleImageChange = (event) => {
@@ -41,7 +41,6 @@ export default function ProfileRegistration() {
         formData.append('email', userData.email);
         formData.append('confirmEmail', userData.confirmEmail);
         formData.append('password', userData.password);
-        formData.append('confirmPassword', userData.confirmPassword);
         formData.append('image', selectedImage);
         formData.append('levelPermissionType', 'USER');
 
@@ -80,7 +79,7 @@ export default function ProfileRegistration() {
             </div>
             <div style={{ marginBottom: 10 }}>
                 <TextField
-                    label="Name"
+                    label="Nome"
                     name="name"
                     value={userData.name}
                     id="outlined-size-small"
@@ -90,7 +89,7 @@ export default function ProfileRegistration() {
             </div>
             <div style={{ marginBottom: 10 }}>
                 <TextField
-                    label="Nickname"
+                    label="Apelido"
                     name="nickname"
                     value={userData.nickname}
                     id="outlined-size-small"
@@ -110,7 +109,7 @@ export default function ProfileRegistration() {
             </div>
             <div style={{ marginBottom: 10 }}>
                 <TextField
-                    label="Password"
+                    label="Senha"
                     name="password"
                     value={userData.password}
                     id="outlined-size-small"
@@ -118,16 +117,6 @@ export default function ProfileRegistration() {
                     onChange={handleInputChange}
                 />
             </div>
-            {/* <div style={{ marginBottom: 10 }}>
-                <TextField
-                    label="Confirm password"
-                    name="confirmPassword"
-                    value={userData.confirmPassword}
-                    id="outlined-size-small"
-                    size="small"
-                    onChange={handleInputChange}
-                />
-            </div> */}
             <div
                 className="buttons-register"
                 style={{
@@ -136,12 +125,16 @@ export default function ProfileRegistration() {
                     placeContent: 'center',
                     paddingTop: 30
                 }}>
-                <Button>Cancel</Button>
+                <Link to="/">
+                    <Button>
+                        Cancelar
+                    </Button>
+                </Link>
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
                 >
-                    Register
+                    Registrar
                 </Button>
             </div>
         </div>

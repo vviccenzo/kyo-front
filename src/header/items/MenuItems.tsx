@@ -7,7 +7,10 @@ const menuItems = [
   {
     key: "1",
     label: "Comunidades",
-    icon: <Link to="/community"><HiUserGroup /></Link>,
+    icon:
+      <Link to="/community">
+        <HiUserGroup />
+      </Link>,
   },
 ];
 
