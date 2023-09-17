@@ -1,86 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Input, Button, Row, Col, Space, Avatar, List, Dropdown, Menu, Divider } from 'antd';
+import { Button, Divider } from 'antd';
 import { Link } from "react-router-dom";
-import {
-    UserOutlined,
-    PaperClipOutlined
-} from '@ant-design/icons';
 
 import "./community.css";
 import Posts from "./posts/Posts";
-
-const data = [
-    {
-        id: 1,
-        user: 'Alice',
-        community: 'Tech Enthusiasts',
-        taggedUsers: ['Bob', 'Charlie'],
-    },
-    {
-        id: 2,
-        user: 'Bob',
-        community: 'Developers',
-        taggedUsers: ['Alice', 'Eve'],
-    }
-];
-
-const users = ['Bob', 'Charlie', 'Dave', 'Eve'];
+import Post from './posts/Post';
+import { useMeuContext } from '../context/Context';
 
 export default function Community() {
+    const [posts, setPosts] = useState([]);
+    const { user } = useMeuContext();
 
-    const [taggedUsersDropdownVisible, setTaggedUsersDropdownVisible] = useState(false);
-    const [taggedUsers, setTaggedUsers] = useState([]);
-    const [text, setText] = useState('');
-    const [posts, setPosts] = useState(data);
+    const loadPosts = async () => {
+        if (user && user.id) {
+            try {
+                const userId = user.id;
+                const response = await fetch('http://localhost:8080/kyo/post/get-by-user?userId=' + userId, {
+                    method: 'GET'
+                });
 
-    const handlePost = async () => {
-
-        const formData = new FormData();
-        formData.append('authorId', 1);
-        formData.append('content', text);
-
-        try {
-            const response = await fetch('http://localhost:8080/kyo/post', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                console.log('Dados enviados com sucesso!');
-            } else {
-                console.error('Erro ao enviar os dados.');
+                if (response.ok) {
+                    const responseData = await response.json();
+                    setPosts(responseData);
+                } else {
+                    console.error('Erro ao enviar os dados.');
+                }
+            } catch (error) {
+                console.error('Erro ao enviar a requisição:', error);
             }
-        } catch (error) {
-            console.error('Erro ao enviar a requisição:', error);
         }
-
-        setText('');
-        setTaggedUsers([]);
-        setTaggedUsersDropdownVisible(false);
     };
 
-    const handleTagUser = (user: any) => {
-        // setTaggedUsers((prevUsers) => [...prevUsers, user]);
-        setTaggedUsersDropdownVisible(false);
-    };
-
-    const handleTextChange = (e) => {
-        setText(e.target.value);
-    };
-
-    const handleFileUpload = (e: any) => {
-    };
-
-    const userMenu = (
-        <Menu>
-            {users.map((user) => (
-                <Menu.Item key={user} onClick={() => handleTagUser(user)}>
-                    {user}
-                </Menu.Item>
-            ))}
-        </Menu>
-    );
+    useEffect(() => {
+        loadPosts();
+    }, [user]);
 
     return (
         <div>
@@ -92,46 +46,12 @@ export default function Community() {
             <Divider />
             <div>
                 <div style={{ paddingLeft: 15 }}>
-                    <Input.TextArea
-                        value={text}
-                        onChange={handleTextChange}
-                        placeholder="Digite um comentário"
-                        autoSize={{ minRows: 4 }}
-                        style={{
-                            marginBottom: 15
-                        }}
-                    />
-                    <Row gutter={16}>
-                        <Col span={12}>
-                            <Space size={16}>
-                                <Dropdown
-                                    overlay={userMenu}
-                                    visible={taggedUsersDropdownVisible}
-                                    onVisibleChange={(visible) => setTaggedUsersDropdownVisible(visible)}
-                                >
-                                    <Button icon={<UserOutlined />}>Marcar Pessoa</Button>
-                                </Dropdown>
-                                <Button
-                                    icon={<PaperClipOutlined />}
-                                    onClick={handleFileUpload}
-                                >
-                                    Anexar Arquivo
-                                </Button>
-                            </Space>
-                        </Col>
-                        <Col span={12}>
-                            <div style={{ textAlign: 'right', paddingRight: 15 }}>
-                                <Button type="primary" onClick={handlePost}>
-                                    Postar
-                                </Button>
-                            </div>
-                        </Col>
-                    </Row>
+                    <Post />
                 </div>
             </div>
             <Divider />
             <div>
-                <Posts />
+                <Posts posts={posts} />
             </div>
         </div>
     );

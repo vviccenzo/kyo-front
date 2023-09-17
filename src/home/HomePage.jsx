@@ -1,13 +1,8 @@
-import React from "react";
-
-function InfoBox({ title, content }) {
-  return (
-    <div className="info-box">
-      <h2>{title}</h2>
-      <p>{content}</p>
-    </div>
-  );
-}
+import React, { useEffect, useState } from "react";
+import Posts from "../community/posts/Posts.tsx";
+import Post from "../community/posts/Post.tsx";
+import { Divider } from "antd";
+import { useMeuContext } from "../context/Context.tsx";
 
 function MainFlowBox({ items }) {
   return (
@@ -23,20 +18,44 @@ function MainFlowBox({ items }) {
 }
 
 function HomePage() {
-  const infoData = [
-    { title: "Informação 1", content: "Conteúdo da Informação 1" },
-    { title: "Informação 2", content: "Conteúdo da Informação 2" },
-  ];
-
   const mainFlowItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
+
+  const [posts, setPosts] = useState([]);
+  const { user } = useMeuContext();
+
+  const loadPosts = async () => {
+    if (user && user.id) {
+      try {
+        const userId = user.id;
+        const response = await fetch(
+          "http://localhost:8080/kyo/post/get-by-user?userId=" + userId,
+          {
+            method: "GET",
+          }
+        );
+
+        if (response.ok) {
+          const responseData = await response.json();
+          setPosts(responseData);
+        } else {
+          console.error("Erro ao enviar os dados.");
+        }
+      } catch (error) {
+        console.error("Erro ao enviar a requisição:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    loadPosts();
+  }, [user]);
 
   return (
     <div className="home-page">
-      <h1>Página Inicial</h1>
       <div className="info-boxes">
-        {infoData.map((info, index) => (
-          <InfoBox key={index} title={info.title} content={info.content} />
-        ))}
+        <Post />
+        <Divider />
+        <Posts posts={posts} />
       </div>
       <MainFlowBox items={mainFlowItems} />
     </div>

@@ -126,7 +126,7 @@ export default function Login({ onLogin }: LoginProps) {
                     style={{
                         color: 'black',
                         cursor: 'pointer',
-                        padding: 75
+                        marginLeft: 75
                     }}
                 >
                     <Button

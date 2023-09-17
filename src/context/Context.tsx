@@ -11,6 +11,17 @@ export default function Context({ children }) {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      const userInfo = localStorage.getItem('user');
+      const userObj = JSON.parse(userInfo);
+
+      setUser(userObj);
+    } else {
+      setUser({});
+    }
+  }, []);
+
   return (
     <MeuContext.Provider
       value={{
