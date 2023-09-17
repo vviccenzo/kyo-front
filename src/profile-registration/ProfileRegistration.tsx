@@ -108,16 +108,6 @@ export default function ProfileRegistration() {
                     onChange={handleInputChange}
                 />
             </div>
-            {/* <div style={{ marginBottom: 10 }}>
-                <TextField
-                    label="Confirm e-mail"
-                    name="confirmEmail"
-                    value={userData.confirmEmail}
-                    id="outlined-size-small"
-                    size="small"
-                    onChange={handleInputChange}
-                />
-            </div> */}
             <div style={{ marginBottom: 10 }}>
                 <TextField
                     label="Password"

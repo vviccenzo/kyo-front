@@ -1,12 +1,12 @@
-// MeuContext.js
 import React, { createContext, useContext, useState } from 'react';
 
-// Crie o contexto
 const MeuContext = createContext();
 
-// Crie um componente de provedor para encapsular os componentes que precisam do contexto
 export default function Context({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    isLogged: false
+  });
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,14 +17,15 @@ export default function Context({ children }) {
       value={{
         isMenuOpen,
         setIsMenuOpen,
-        toggleMenu
+        toggleMenu,
+        userInfo,
+        setUserInfo
       }}>
       {children}
     </MeuContext.Provider>
   );
 }
 
-// Crie um gancho personalizado para usar o contexto
 export function useMeuContext() {
   const context = useContext(MeuContext);
   if (!context) {

@@ -29,8 +29,32 @@ export default function NewCommunity() {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log(community);
+
+        const formData = new FormData();
+
+        formData.append('name', community.name);
+        formData.append('description', community.description);
+        // formData.append('topics', community.topics);
+        // formData.append('members', community.members);
+        // formData.append('admins', community.admins);
+        formData.append('visibility', community.visibility);
+
+        try {
+            const response = await fetch('http://localhost:8080/kyo/community', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                console.log('Dados enviados com sucesso!');
+            } else {
+                console.error('Erro ao enviar os dados.');
+            }
+        } catch (error) {
+            console.error('Erro ao enviar a requisição:', error);
+        }
     };
 
     return (
@@ -112,9 +136,9 @@ export default function NewCommunity() {
                 <Select
                     placeholder="Selecione a Visibilidade"
                     onChange={(value) => handleSelectChange(value, 'visibility')}>
-                    <Option value="public">Público</Option>
-                    <Option value="private">Privado</Option>
-                    <Option value="invite">Somente convidados</Option>
+                    <Option value="PUBLIC">Público</Option>
+                    <Option value="PRIVATE">Privado</Option>
+                    <Option value="INVITED">Somente convidados</Option>
                 </Select>
             </Form.Item>
             <Form.Item>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 function InfoBox({ title, content }) {
   return (
@@ -24,11 +24,11 @@ function MainFlowBox({ items }) {
 
 function HomePage() {
   const infoData = [
-    { title: 'Informação 1', content: 'Conteúdo da Informação 1' },
-    { title: 'Informação 2', content: 'Conteúdo da Informação 2' },
+    { title: "Informação 1", content: "Conteúdo da Informação 1" },
+    { title: "Informação 2", content: "Conteúdo da Informação 2" },
   ];
 
-  const mainFlowItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+  const mainFlowItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
   return (
     <div className="home-page">

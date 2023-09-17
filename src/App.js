@@ -1,30 +1,37 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import HomePage from "./home/HomePage.jsx";
-import HeaderBar from "./header/HeaderBar.jsx";
 import Profile from "./profile/Profile.jsx";
+import Login from "./login/Login.tsx";
 import ProfileRegistration from "./profile-registration/ProfileRegistration.tsx";
 import Community from "./community/Community.tsx";
 import NewCommunity from "./community/newCommunity/NewCommunity.tsx";
-import Context from "./context/Context.tsx";
+import ProtectedRoute from "./ProtectedRoute.tsx";
 
-function App() {
+export default function App() {
   return (
-    <>
-      <Context>
-        <Router>
-          <HeaderBar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/profile/register" element={<ProfileRegistration />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/community/newCommunity" element={<NewCommunity />} />
-          </Routes>
-        </Router>
-      </Context>
-    </>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/home"
+          element={<ProtectedRoute element={<HomePage />} />}
+        />
+        <Route
+          path="/profile"
+          element={<ProtectedRoute element={<Profile />} />}
+        />
+        <Route
+          path="/profile/register"
+          element={<ProtectedRoute element={<ProfileRegistration />} />}
+        />
+        <Route
+          path="/community"
+          element={<ProtectedRoute element={<Community />} />}
+        />
+        <Route
+          path="/community/newCommunity"
+          element={<ProtectedRoute element={<NewCommunity />} />}
+        />
+      </Routes>
   );
 }
-
-export default App;

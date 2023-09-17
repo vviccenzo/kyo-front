@@ -17,12 +17,23 @@
     padding-right: 770px !important;
 }
 
-.header-bar-principal {
-    background-color: black;
-    height: 50px;
-}
-
 .header-bar-info {
     display: flex;
     justify-content: flex-end;
+}
+
+:where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark.ant-menu-horizontal >.ant-menu-item-selected, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu.ant-menu-horizontal >.ant-menu-item-selected, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark.ant-menu-horizontal >.ant-menu-submenu-selected, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu.ant-menu-horizontal >.ant-menu-submenu-selected  {
+    background-color: white;
+}
+
+:where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark.ant-menu-horizontal >.ant-menu-item-selected:hover, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu.ant-menu-horizontal >.ant-menu-item-selected:hover, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark.ant-menu-horizontal >.ant-menu-submenu-selected:hover, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu.ant-menu-horizontal >.ant-menu-submenu-selected:hover {
+    background-color: white;
+}
+
+:where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark .ant-menu-item-selected a, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu .ant-menu-item-selected a, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark .ant-menu-item-selected a:hover, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu .ant-menu-item-selected a:hover {
+    background-color: black;
+}
+
+:where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark .ant-menu-item-selected, :where(.css-dev-only-do-not-override-nnuwmp).ant-menu-dark>.ant-menu .ant-menu-item-selected {
+    background-color: black;
 }

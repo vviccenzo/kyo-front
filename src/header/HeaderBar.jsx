@@ -1,78 +1,87 @@
-import { DiNetbeans } from "react-icons/di";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useMeuContext } from "../context/Context.tsx";
-
 import React from "react";
-import Avatar from "@mui/material/Avatar";
-import TemporaryDrawer from "../main-drawer/MainDrawert.tsx";
-import AppsIcon from "@mui/icons-material/Apps";
-import stringAvatar from "./functions/stringAvatar.js";
-import ProfileMenu from "./profileMenu/ProfileMenu.tsx";
+import App from "../App.js";
 
 import "./headerbar.css";
 
-export default function HeaderBar() {
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const { toggleMenu, isMenuOpen } = useMeuContext();
+import { useState } from "react";
+import { Layout, Menu, theme } from "antd";
 
-  function handleDrawer() {
-    setIsOpenDrawer(!isOpenDrawer);
-  }
+import HeaderItems from "./items/HeaderItems.tsx";
+
+import menuItems from "./items/MenuItems.tsx";
+
+const { Header, Sider, Content } = Layout;
+
+export default function HeaderBar() {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+
+  const itemHoverStyle = {
+    background: "black",
+    "&:hover": {
+      backgroundColor: "black",
+      color: "white",
+    },
+  };
 
   return (
-    <div className="header-bar-principal">
-      <div className="header-bar">
-        <div
+    <>
+      <Layout>
+        <Sider
           style={{
-            display: "flex",
+            backgroundColor: "black",
           }}
+          trigger={null}
+          collapsible
+          collapsed={collapsed}
         >
-          <AppsIcon
+          <div className="demo-logo-vertical" />
+          <Menu
             style={{
+              background: "black",
+            }}
+            theme="dark"
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+          >
+            {menuItems.map((item) => (
+              <Menu.Item
+                key={item.key}
+                label={item.label}
+                icon={item.icon}
+                style={itemHoverStyle}
+              >
+                {item.label}
+              </Menu.Item>
+            ))}
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header
+            style={{
+              padding: 0,
+              background: colorBgContainer,
               display: "flex",
-              paddingTop: 7,
-              paddingLeft: 10,
-              cursor: "pointer",
-              width: 30,
-              height: 35,
-              color: "white",
+              justifyContent: "space-between",
             }}
-            onClick={handleDrawer}
-          />
-          <Link to="/">
-            <DiNetbeans
-              style={{
-                display: "flex",
-                marginTop: 7,
-                cursor: "pointer",
-                width: 35,
-                height: 35,
-                color: "white",
-              }}
-            />
-          </Link>
-        </div>
-        <TemporaryDrawer
-          isOpenDrawer={isOpenDrawer}
-          handleDrawer={handleDrawer}
-        />
-
-        <div className="icon-profile-name">
-          <Avatar
-            onClick={toggleMenu}
+          >
+            <HeaderItems setCollapsed={setCollapsed} collapsed={collapsed} />
+          </Header>
+          <Content
             style={{
-              marginTop: 5,
-              marginRight: 5,
-              cursor: "pointer",
+              margin: "24px 16px",
+              padding: 24,
+              minHeight: 280,
+              background: colorBgContainer,
+              borderRadius: 5,
             }}
-            {...stringAvatar("Vinicius Vicenzo")}
-          />
-        </div>
-      </div>
-      <div className="header-bar-info">
-        {isMenuOpen && <ProfileMenu onClose={toggleMenu} />}
-      </div>
-    </div>
+          >
+            <App />
+          </Content>
+        </Layout>
+      </Layout>
+    </>
   );
 }

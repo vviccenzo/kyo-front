@@ -45,12 +45,18 @@ export default function InputsProfile() {
                     id="outlined-size-small"
                     defaultValue="Small"
                     size="small"
+                    style={{
+                        width: 250
+                    }}
                 />
                 <TextField
                     label="Nickname"
                     id="outlined-size-small"
                     defaultValue="Small"
                     size="small"
+                    style={{
+                        width: 250
+                    }}
                 />
             </div>
         </div>
