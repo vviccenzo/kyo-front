@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Card, Button, Space, Tooltip } from 'antd';
-import { LikeOutlined, CommentOutlined, ShareAltOutlined } from '@ant-design/icons';
+import { Card, Button, Space, Tooltip, Avatar } from 'antd';
+import { LikeOutlined, ShareAltOutlined, ClockCircleOutlined } from '@ant-design/icons';
+
+import moment from 'moment';
+import CommentSection from './comment/CommentSection';
 
 function PostCard({ user, content, post }: any) {
 
     const [likes, setLikes] = useState<number>(post.countLikes);
+    const [comments, setComments] = useState<string[]>([]);
 
     const likePost = async () => {
         try {
@@ -32,31 +36,87 @@ function PostCard({ user, content, post }: any) {
         }
     }
 
+    function parseDate(date: string) {
+        const now = moment();
+        const dateMoment = moment(date);
+
+        if (now.isSame(date, 'day')) {
+            return dateMoment.format('HH:mm');
+        } else if (now.isSame(dateMoment.clone().subtract(1, 'day'), 'day')) {
+            return 'Ontem';
+        } else {
+            return dateMoment.format('YYYY-MM-DD HH:mm');
+        }
+    }
+
+    const addComment = (newComment: any) => {
+        console.log(newComment);
+    }
+
     return (
         <Card
-            title={`Por ${user.name}`}
             style={{
-                margin: '16px'
+                maxWidth: '800px',
+                margin: '0 auto',
+                marginBottom: '16px',
             }}
         >
-            <p>{content}</p>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
+                <Avatar src={user.avatar} />
+                <div style={{ marginLeft: '8px' }}>
+                    <span style={{ fontWeight: 'bold' }}>{user.name}</span>
+                    <br />
+                    <span style={{ fontSize: '12px', color: '#777' }}>
+                        <ClockCircleOutlined style={{ marginRight: '4px' }} />
+                        {parseDate(post.createdAt)}
+                    </span>
+                </div>
+            </div>
+            <p
+                style={{
+                    fontSize: '16px',
+                    lineHeight: '1.5',
+                    marginBottom: '16px',
+                }}
+            >
+                {content}
+            </p>
             <Space>
                 <Tooltip title={`${likes} curtidas`}>
                     <Button
                         icon={<LikeOutlined />}
                         size="small"
                         onClick={likePost}
+                        style={{
+                            color: '#1890ff',
+                            fontWeight: 'bold',
+                        }}
                     >
                         Curtir
                     </Button>
                 </Tooltip>
-                <Button icon={<CommentOutlined />} size="small">
-                    Comentar
-                </Button>
-                <Button icon={<ShareAltOutlined />} size="small">
-                    Compartilhar
-                </Button>
+                <Tooltip title="Comentar">
+                    <CommentSection
+                        comments={comments}
+                        onAddComment={addComment}
+                    />
+                </Tooltip>
+                <Tooltip title="Compartilhar">
+                    <Button icon={<ShareAltOutlined />} size="small" />
+                </Tooltip>
             </Space>
+            {likes > 0 && (
+                <div style={{ marginTop: '16px' }}>
+                    <span
+                        style={{
+                            fontSize: '14px',
+                            color: '#777'
+                        }}
+                    >
+                        {likes} curtidas
+                    </span>
+                </div>
+            )}
         </Card>
     );
 }

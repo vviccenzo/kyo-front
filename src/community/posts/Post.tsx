@@ -36,7 +36,6 @@ export default function Post({ loadPosts }: any) {
             console.error('Erro ao enviar a requisição:', error);
         }
 
-        loadPosts();
         setText('');
         setTaggedUsers([]);
         setTaggedUsersDropdownVisible(false);

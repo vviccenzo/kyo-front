@@ -1,24 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Posts from "../community/posts/Posts.tsx";
-import Post from "../community/posts/Post.tsx";
 import { Divider } from "antd";
 import { useMeuContext } from "../context/Context.tsx";
 
-function MainFlowBox({ items }) {
-  return (
-    <div className="main-flow-box">
-      <h2>Fluxo Principal</h2>
-      <ul>
-        {items.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+import React, { useEffect, useState } from "react";
+import Posts from "../community/posts/Posts.tsx";
+import Post from "../community/posts/Post.tsx";
 
 function HomePage() {
-  const mainFlowItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
   const [posts, setPosts] = useState([]);
   const { user } = useMeuContext();
@@ -53,11 +40,10 @@ function HomePage() {
   return (
     <div className="home-page">
       <div className="info-boxes">
-        <Post />
+        <Post loadPosts={loadPosts} />
         <Divider />
-        <Posts posts={posts} />
+        <Posts posts={posts}/>
       </div>
-      <MainFlowBox items={mainFlowItems} />
     </div>
   );
 }

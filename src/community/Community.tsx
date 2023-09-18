@@ -46,7 +46,7 @@ export default function Community() {
             <Divider />
             <div>
                 <div style={{ paddingLeft: 15 }}>
-                    <Post />
+                    <Post loadPosts={loadPosts} />
                 </div>
             </div>
             <Divider />
