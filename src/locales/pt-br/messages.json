@@ -1,0 +1,7 @@
+{
+    "friend_request": {
+        "friend_request_received": "Você recebeu uma nova solicitação de amizade do {senderName}",
+        "friend_request_declined": "Sua solicitação de amizade para o {targetName} foi negada.",
+        "friend_request_accepted": "Sua solicitação de amizade para o {targetName} foi aceita."
+    }
+}

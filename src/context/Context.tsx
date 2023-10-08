@@ -5,6 +5,7 @@ const MeuContext = createContext();
 export default function Context({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState({});
+  const [selectedLanguage, setSelectedLanguage] = useState("ptBr");
   const [isLogged, setIsLogged] = useState(localStorage.getItem('isLogged'));
 
   const toggleMenu = () => {
@@ -31,7 +32,9 @@ export default function Context({ children }) {
         isLogged,
         setIsLogged,
         user,
-        setUser
+        setUser,
+        selectedLanguage,
+        setSelectedLanguage
       }}>
       {children}
     </MeuContext.Provider>
